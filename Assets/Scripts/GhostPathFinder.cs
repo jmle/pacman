@@ -5,13 +5,13 @@ using System.Collections.Generic;
 // Selects the next direction to go to
 public class GhostPathFinder : MonoBehaviour {
 
-	// The target tile this ghost should go to
 	private GhostController ghostController;
 	private Vector2 target;
 	private Vector2 truncatedPosition;
 	private Vector2 lastPositionDecided;
 	private Rigidbody2D ghost;
 	private Tile[,] tileMap;
+	private bool kickstarting;
 
 	public GameObject tileMapCreator;
 
@@ -23,9 +23,7 @@ public class GhostPathFinder : MonoBehaviour {
 		ghostController = GetComponent<GhostController>();
 		TileMapFactory factory = tileMapCreator.GetComponent<TileMapFactory>();
 		tileMap = factory.GetTileMap ();
-
-		// Initialise direction
-		ghostController.SetDirection (DecideNextDirection ());
+		kickstarting = true;
 	}
 	
 	// Update is called once per frame
@@ -33,9 +31,10 @@ public class GhostPathFinder : MonoBehaviour {
 		truncatedPosition = VectorUtils.Truncate (ghost.position);
 
 		float distToTileCenter = Vector2.Distance (ghost.position, truncatedPosition);
-		if (distToTileCenter < 0.4 && !lastPositionDecided.Equals (truncatedPosition)) {
+		if ((distToTileCenter < 0.2 && !lastPositionDecided.Equals (truncatedPosition)) || kickstarting) {
 			ghostController.SetDirection (DecideNextDirection ());
 			lastPositionDecided = truncatedPosition;
+			kickstarting = false;
 		}
 
 		// Debug.DrawLine (rigidbody2D.position, VectorUtils.Truncate (target), Color.green);
