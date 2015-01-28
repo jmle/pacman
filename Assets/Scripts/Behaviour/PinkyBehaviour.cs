@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PinkyBehaviour : Behaviour {
+public class PinkyBehaviour : AbstractBehaviour {
 	
 	private static Vector2 targetScatter = new Vector2 (23, 3);
 	

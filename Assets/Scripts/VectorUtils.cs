@@ -7,7 +7,8 @@ public static class VectorUtils {
 	public static Vector2 left = new Vector2 (-1, 0);
 	public static Vector2 down = new Vector2 (0, -1);
 	public static Vector2 right = new Vector2 (1, 0);
-	
+
+	// Returns the Vector that is closer to target
 	public static Vector2 ShortestDistance (Vector2 a, Vector2 b, Vector2 target) {
 		if (Vector2.Distance (a, target) < Vector2.Distance (b, target)) {
 			return a;
@@ -16,6 +17,7 @@ public static class VectorUtils {
 		}
 	}
 
+	// Eliminates the decimal parts of the coordinates of the given Vector2
 	public static Vector2 Truncate (Vector2 a) {
 		float newX = (float)((int) a.x);
 		float newY = (float)((int) a.y);
@@ -23,10 +25,12 @@ public static class VectorUtils {
 		return new Vector2(newX, newY);
 	}
 
+	// Determines whether the given Vector2s are opposite from one another
 	public static bool AreOpposite (Vector2 a, Vector2 b) {
 		return a.Equals (-b);
 	}
 
+	// Truncates the value of a Vector2 to stay inside the scenario
 	public static Vector2 RemoveMapOverflows (Vector2 a) {
 		// TODO: mirar lo de "out" en los argumentos
 		if (a.x < 0)

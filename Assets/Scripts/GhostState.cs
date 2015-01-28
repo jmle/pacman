@@ -5,6 +5,8 @@ public enum GhostState {
 	CHASE,				// Chasing Pacman
 	SCATTER,			// Going to the Scatter position
 	FRIGHTENED,			// Pacman ate the energizer
-	HOME,				// Waiting to be released
 	DEAD,				// Was just eaten
+	HOME,				// Waiting to be released
+	EXIT,				// Exiting home
+	START,				// About to start moving
 }

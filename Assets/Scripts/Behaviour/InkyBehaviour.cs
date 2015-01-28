@@ -2,7 +2,7 @@
 using System.Collections;
 
 // Calculates the target tile for the ghost.
-public class InkyBehaviour : Behaviour {
+public class InkyBehaviour : AbstractBehaviour {
 
 	private static Vector2 targetScatter = new Vector2 (23, 27);
 

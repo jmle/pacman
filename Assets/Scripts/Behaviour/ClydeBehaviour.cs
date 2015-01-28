@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ClydeBehaviour : Behaviour {
+public class ClydeBehaviour : AbstractBehaviour {
 
 	private static Vector2 targetScatter = new Vector2 (4, 3);
 	

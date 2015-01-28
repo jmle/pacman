@@ -57,7 +57,6 @@ public class GhostPathFinder : MonoBehaviour {
 		return closestToTarget;
 	}
 
-	// Sets the target tile
 	public void SetTargetTile (Vector2 tile) {
 		target = tile;
 	}

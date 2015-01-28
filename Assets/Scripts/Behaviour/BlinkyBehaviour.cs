@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BlinkyBehaviour : Behaviour {
+public class BlinkyBehaviour : AbstractBehaviour {
 
 	private static Vector2 targetScatter = new Vector2 (23, 27);
 

@@ -1,27 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class Behaviour : MonoBehaviour {
+public abstract class AbstractBehaviour : MonoBehaviour {
+	private static Vector2 startingPosition = new Vector2 (13.5f, 19f);
 	
 	public GameObject player;
 
-	protected GhostPathFinder pathFinder;
-	protected GhostState ghostState;
-	protected Vector2 target;
 	protected PlayerController playerController;
-	
-	private static Vector2 targetScatter = new Vector2 (23, 27);
+	protected GhostPathFinder pathFinder;
+	public GhostState ghostState;
 
 	void Start () {
 		pathFinder = GetComponent<GhostPathFinder>();
 		playerController = player.GetComponent<PlayerController> ();
-		target = new Vector2 ();
 		ghostState = GhostState.CHASE;
 	}
 
 	void Update () {
 		CalculateTargetPosition ();
-		pathFinder.SetTargetTile (target);
+		pathFinder.SetTargetTile (CalculateTargetPosition ());
 	}
 
 	// TODO: multicast message to all *Behaviour objects with the new behaviour mode
@@ -29,7 +26,8 @@ public abstract class Behaviour : MonoBehaviour {
 		this.ghostState = ghostBehaviourMode;
 	}
 	
-	private void CalculateTargetPosition () {
+	private Vector2 CalculateTargetPosition () {
+		Vector2 target = Vector2.zero;
 
 		switch (ghostState) {
 		case GhostState.CHASE:
@@ -46,6 +44,8 @@ public abstract class Behaviour : MonoBehaviour {
 		default:
 			break;
 		}
+
+		return target;
 	}
 
 	protected abstract Vector2 GetTargetForChase ();
