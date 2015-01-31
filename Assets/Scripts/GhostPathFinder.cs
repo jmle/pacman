@@ -30,14 +30,24 @@ public class GhostPathFinder : MonoBehaviour {
 	void FixedUpdate () {
 		truncatedPosition = VectorUtils.Truncate (ghost.position);
 
-		float distToTileCenter = Vector2.Distance (ghost.position, truncatedPosition);
-		if ((distToTileCenter < 0.2 && !lastPositionDecided.Equals (truncatedPosition)) || kickstarting) {
+		if (ShouldChangeDirection ()) {
 			ghostController.SetDirection (DecideNextDirection ());
 			lastPositionDecided = truncatedPosition;
-			kickstarting = false;
 		}
 
 		// Debug.DrawLine (rigidbody2D.position, VectorUtils.Truncate (target), Color.green);
+	}
+
+	private bool ShouldChangeDirection () {
+		if (kickstarting) {
+			kickstarting = false;
+			return true;
+		} else {
+			bool isCloseToCenterOfTheTile = Vector2.Distance (ghost.position, truncatedPosition) < 0.2;
+			bool hasChangedTileSinceLastDecided = !lastPositionDecided.Equals (truncatedPosition);
+
+			return (isCloseToCenterOfTheTile && hasChangedTileSinceLastDecided);
+		}
 	}
 
 	private Vector2 DecideNextDirection () {

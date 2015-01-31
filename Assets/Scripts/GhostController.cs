@@ -3,8 +3,6 @@ using System.Collections;
 
 public class GhostController : MonoBehaviour {
 
-	public GameObject player;
-
 	private Motor motor;
 	private Vector2 direction;
 
@@ -13,7 +11,7 @@ public class GhostController : MonoBehaviour {
 		motor = GetComponent<Motor>();
 		direction = Vector2.zero;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		motor.SetDirection (direction);

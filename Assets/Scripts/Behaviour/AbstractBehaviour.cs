@@ -17,7 +17,6 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 	}
 
 	void Update () {
-		CalculateTargetPosition ();
 		pathFinder.SetTargetTile (CalculateTargetPosition ());
 	}
 
