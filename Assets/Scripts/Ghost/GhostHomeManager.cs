@@ -15,14 +15,9 @@ public class GhostHomeManager : MonoBehaviour {
 	void Start () {
 		currentGhost = ghosts[currentGhostIndex];
 	}
-	
-	// Update is called once per frame
-	void Update () {
-
-	}
 
 	// Called each time a dot is eaten
-	void pacmanAteDot() {
+	public void pacmanAteDot() {
 		if (!livesLost) {
 			UpdateGhostCounter ();
 		} else {
@@ -39,12 +34,7 @@ public class GhostHomeManager : MonoBehaviour {
 			}
 		}
 	}
-
-	private void UpdateGlobalCounter () {
-		// Broadcast message to all ghosts
-		gameObject.BroadcastMessage ("IncrementGlobalCounter");
-	}
-
+	
 	private void UpdateCurrentGhost () {
 		try {
 			currentGhost = ghosts[++currentGhostIndex];
@@ -52,4 +42,10 @@ public class GhostHomeManager : MonoBehaviour {
 			currentGhost = null;
 		}
 	}
+
+	private void UpdateGlobalCounter () {
+		// Broadcast message to all ghosts (children)
+		gameObject.BroadcastMessage ("IncrementGlobalCounter");
+	}
+
 }
