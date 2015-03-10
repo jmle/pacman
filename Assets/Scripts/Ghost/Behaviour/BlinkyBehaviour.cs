@@ -12,4 +12,5 @@ public class BlinkyBehaviour : AbstractBehaviour {
 	protected override Vector2 GetTargetForScatter () {
 		return targetScatter;
 	}
+
 }

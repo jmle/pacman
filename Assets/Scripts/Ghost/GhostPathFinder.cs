@@ -25,6 +25,10 @@ public class GhostPathFinder : MonoBehaviour {
 		tileMap = factory.GetTileMap ();
 		kickstarting = true;
 	}
+
+	void OnEnable () {
+		kickstarting = true;
+	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
@@ -69,5 +73,9 @@ public class GhostPathFinder : MonoBehaviour {
 
 	public void SetTargetTile (Vector2 tile) {
 		target = tile;
+	}
+
+	public GhostController GetGhostController () {
+		return ghostController;
 	}
 }

@@ -8,5 +8,4 @@ public enum GhostState {
 	DEAD,				// Was just eaten
 	HOME,				// Waiting to be released
 	EXIT,				// Exiting home
-	START,				// About to start moving
 }

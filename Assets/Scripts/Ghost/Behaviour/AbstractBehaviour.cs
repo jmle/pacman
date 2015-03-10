@@ -3,30 +3,24 @@ using System.Collections;
 
 public abstract class AbstractBehaviour : MonoBehaviour {
 	private static Vector2 startingPosition = new Vector2 (13.5f, 19f);
-	
+
 	public GameObject player;
 
 	protected PlayerController playerController;
 	protected GhostPathFinder pathFinder;
-	public GhostState ghostState;
 
 	void Start () {
 		pathFinder = GetComponent<GhostPathFinder>();
 		playerController = player.GetComponent<PlayerController> ();
-		ghostState = GhostState.CHASE;
 	}
 
 	void Update () {
 		pathFinder.SetTargetTile (CalculateTargetPosition ());
 	}
 
-	// TODO: multicast message to all *Behaviour objects with the new behaviour mode
-	public void SetGhostBehaviourMode (GhostState ghostBehaviourMode) {
-		this.ghostState = ghostBehaviourMode;
-	}
-	
 	private Vector2 CalculateTargetPosition () {
 		Vector2 target = Vector2.zero;
+		GhostState ghostState = pathFinder.GetGhostController ().GetGhostState ();
 
 		switch (ghostState) {
 		case GhostState.CHASE:
@@ -38,6 +32,11 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 			break;
 
 		case GhostState.FRIGHTENED:
+			target = GetTargetForFrightened ();
+			break;
+
+		case GhostState.DEAD:
+			target = startingPosition;
 			break;
 
 		default:
@@ -45,6 +44,11 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 		}
 
 		return target;
+	}
+
+	// TODO: This will make it change constantly. Maybe add timer?
+	private Vector2 GetTargetForFrightened () {
+		return VectorUtils.GetRandomVector ();
 	}
 
 	protected abstract Vector2 GetTargetForChase ();

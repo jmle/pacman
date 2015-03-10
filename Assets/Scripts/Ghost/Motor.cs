@@ -21,5 +21,9 @@ public class Motor : MonoBehaviour {
 	public void SetDirection (Vector2 direction) {
 		this.direction = direction;
 	}
-	
+
+	public void GoTo (Vector2 position) {
+		direction = (position - ghost.position).normalized;
+	}
+
 }

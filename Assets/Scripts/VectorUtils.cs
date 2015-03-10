@@ -45,4 +45,11 @@ public static class VectorUtils {
 		return a;
 	}
 
+	public static Vector2 GetRandomVector () {
+		float randomX = Random.Range (0, 27);
+		float randomY = Random.Range (0, 30);
+		
+		return new Vector2 (randomX, randomY);
+	}
+
 }
