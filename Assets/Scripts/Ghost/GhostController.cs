@@ -4,8 +4,12 @@ using System.Collections;
 public class GhostController : MonoBehaviour {
 
 	public GhostState ghostState;
+	public int dotLimit;
+	public int globalLimit;
 
 	private Vector2 direction;
+	private int dotCounter;
+	private int globalCounter;
 
 	private Motor motor;
 	private GhostPathFinder ghostPathFinder;
@@ -45,6 +49,22 @@ public class GhostController : MonoBehaviour {
 			break;
 		}
 	}
+	
+	public void IncrementDotCounter () {
+		if (dotCounter < dotLimit) {
+			dotCounter++;
+		} else {
+			ghostState = GhostState.EXIT;
+		}
+	}
+
+	public void IncrementGlobalCounter () {
+		globalCounter++;
+
+		if (globalCounter >= globalLimit) {
+			ghostState = GhostState.EXIT;
+		}
+	}
 
 	public void EnablePathFinding () {
 		ghostScriptedMovement.enabled = false;
@@ -71,4 +91,9 @@ public class GhostController : MonoBehaviour {
 	public void SetGhostState (GhostState ghostState) {
 		this.ghostState = ghostState;
 	}
+
+	public void SetDotLimit(int dotLimit) {
+		this.dotLimit = dotLimit;
+	}
+
 }
