@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class GhostHomeManager : MonoBehaviour {
+// TODO: add scatter stuff and timers for dots
+public class GhostManager : MonoBehaviour {
 
 	public GhostController[] ghosts = new GhostController[4];
 
