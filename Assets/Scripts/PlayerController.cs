@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour {
 
 	private Animator animator;
 
+	public GhostManager ghostManager;
 	public float speed;
 
 	// Use this for initialization
@@ -58,5 +59,13 @@ public class PlayerController : MonoBehaviour {
 			direction = VectorUtils.right;
 
 		return direction;
+	}
+
+	public void EatDot () {
+		ghostManager.pacmanAteDot ();
+	}
+
+	public void EatEnergizer () {
+
 	}
 }
