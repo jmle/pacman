@@ -19,7 +19,6 @@ public class GhostManager : MonoBehaviour {
 
 	// Called each time a dot is eaten
 	public void pacmanAteDot() {
-		Debug.Log ("Pacman ate dot");
 		if (!livesLost) {
 			UpdateGhostCounter ();
 		} else {
