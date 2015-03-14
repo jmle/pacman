@@ -28,11 +28,11 @@ public class GhostManager : MonoBehaviour {
 
 	private void UpdateGhostCounter () {
 		if (currentGhost != null) {
-			currentGhost.IncrementDotCounter ();
-
 			if (currentGhost.GetGhostState() != GhostState.HOME) {
 				UpdateCurrentGhost();
 			}
+
+			currentGhost.IncrementDotCounter ();
 		}
 	}
 	
