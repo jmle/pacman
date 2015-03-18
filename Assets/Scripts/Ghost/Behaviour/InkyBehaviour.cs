@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 
 // Calculates the target tile for the ghost.
@@ -9,7 +9,7 @@ public class InkyBehaviour : AbstractBehaviour {
 	public GameObject blinky;
 
 	protected override Vector2 GetTargetForChase () {
-		Vector2 playerOffset = player.rigidbody2D.position + playerController.GetDirection () * 2;
+		Vector2 playerOffset = player.rigidbody2D.position + pacmanController.GetDirection () * 2;
 		Vector2 targetPosition = (playerOffset * 2) - blinky.rigidbody2D.position;
 
 		return VectorUtils.Truncate (targetPosition);

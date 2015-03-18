@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PlayerController : MonoBehaviour {
+public class PacmanController : MonoBehaviour {
 
 	private Animator animator;
 
@@ -62,7 +62,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	public void EatDot () {
-		ghostManager.pacmanAteDot ();
+		ghostManager.PacmanAteDot ();
 	}
 
 	public void EatEnergizer () {

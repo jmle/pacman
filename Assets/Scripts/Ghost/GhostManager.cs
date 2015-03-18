@@ -18,7 +18,7 @@ public class GhostManager : MonoBehaviour {
 	}
 
 	// Called each time a dot is eaten
-	public void pacmanAteDot() {
+	public void PacmanAteDot() {
 		if (!livesLost) {
 			UpdateGhostCounter ();
 		} else {
@@ -28,18 +28,20 @@ public class GhostManager : MonoBehaviour {
 
 	private void UpdateGhostCounter () {
 		if (currentGhost != null) {
-			if (currentGhost.GetGhostState() != GhostState.HOME) {
+			if (currentGhost.GetGhostState() == GhostState.HOME) {
+				currentGhost.IncrementDotCounter();
+			} else {
 				UpdateCurrentGhost();
 			}
-
-			currentGhost.IncrementDotCounter ();
 		}
 	}
-	
+
 	private void UpdateCurrentGhost () {
 		try {
 			currentGhost = ghosts[++currentGhostIndex];
 		} catch (System.IndexOutOfRangeException) {
+			// If the current ghost is null, it will mean that all ghosts have exited
+			// the house.
 			currentGhost = null;
 		}
 	}

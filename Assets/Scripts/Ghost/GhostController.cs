@@ -2,7 +2,6 @@
 using System.Collections;
 
 public class GhostController : MonoBehaviour {
-
 	public GhostState ghostState;
 	public int dotLimit;
 	public int globalLimit;
@@ -27,6 +26,7 @@ public class GhostController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ChoosePathFinder ();
+		UpdateGhostState ();
 
 		motor.SetDirection (direction);
 	}
@@ -49,21 +49,28 @@ public class GhostController : MonoBehaviour {
 			break;
 		}
 	}
+
+	private void UpdateGhostState () {
+		// We want the state to be updated constantly, independently of whether
+		// pacman ate a dot or not. Otherwise, the state would only get updated
+		// when pacman eats, triggering exit only when eating.
+		// TODO: GhostHomeManager?
+		if (ghostState == GhostState.HOME) {
+			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
+				ghostState = GhostState.EXIT;
+			}
+		} else if (ghostState == GhostState.DEAD) {
+			// TODO: where to put this??
+			// if (Vector2.Distance (rigidbody2D.position, position) < 0.1)
+		}
+	}
 	
 	public void IncrementDotCounter () {
-		if (dotCounter < dotLimit) {
-			dotCounter++;
-		} else {
-			ghostState = GhostState.EXIT;
-		}
+		dotCounter++;
 	}
 
 	public void IncrementGlobalCounter () {
 		globalCounter++;
-
-		if (globalCounter >= globalLimit) {
-			ghostState = GhostState.EXIT;
-		}
 	}
 
 	public void EnablePathFinding () {

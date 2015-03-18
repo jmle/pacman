@@ -17,13 +17,10 @@ public class GhostPathFinder : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		truncatedPosition = new Vector2 ();
-		lastPositionDecided = new Vector2 ();
+		kickstarting = true;
 		ghost = gameObject.rigidbody2D;
 		ghostController = GetComponent<GhostController>();
-		TileMapFactory factory = tileMapCreator.GetComponent<TileMapFactory>();
-		tileMap = factory.GetTileMap ();
-		kickstarting = true;
+		tileMap = tileMapCreator.GetComponent<TileMapFactory>().GetTileMap();
 	}
 
 	void OnEnable () {
@@ -38,8 +35,6 @@ public class GhostPathFinder : MonoBehaviour {
 			ghostController.SetDirection (DecideNextDirection ());
 			lastPositionDecided = truncatedPosition;
 		}
-
-		// Debug.DrawLine (rigidbody2D.position, VectorUtils.Truncate (target), Color.green);
 	}
 
 	private bool ShouldChangeDirection () {
@@ -55,11 +50,16 @@ public class GhostPathFinder : MonoBehaviour {
 	}
 
 	private Vector2 DecideNextDirection () {
+		// Get the possible directions out of the current tile
 		Tile currentTile = tileMap[(int) truncatedPosition.x, (int) truncatedPosition.y];
 		IList<Vector2> directions = currentTile.GetDirections ();
 
+		// Calculate which of the possible directions is the closest to the target
 		Vector2 closestToTarget = new Vector2 (1000, 1000);
 		foreach (Vector2 dir in directions) {
+			// The opposite direction of the current one is discarded
+			// TODO: ghosts should be able to change direction when changing behaviour
+			// TODO: a DEAD ghost should be able to get into the house
 			if (!VectorUtils.AreOpposite (ghostController.GetDirection (), dir)) {
 				if (Vector2.Distance (ghost.position + dir, target) <
 				    Vector2.Distance (ghost.position + closestToTarget, target)) {

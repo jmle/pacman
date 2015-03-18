@@ -2,16 +2,18 @@
 using System.Collections;
 
 public abstract class AbstractBehaviour : MonoBehaviour {
-	private static Vector2 startingPosition = new Vector2 (13.5f, 19f);
+	private static Vector2 STARTING_POSITION = new Vector2 (13.5f, 19f);
 
 	public GameObject player;
 
-	protected PlayerController playerController;
+	private GhostState ghostState;
+
+	protected PacmanController pacmanController;
 	protected GhostPathFinder pathFinder;
 
 	void Start () {
 		pathFinder = GetComponent<GhostPathFinder>();
-		playerController = player.GetComponent<PlayerController> ();
+		pacmanController = player.GetComponent<PacmanController> ();
 	}
 
 	void Update () {
@@ -36,7 +38,7 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 			break;
 
 		case GhostState.DEAD:
-			target = startingPosition;
+			target = STARTING_POSITION;
 			break;
 
 		default:
@@ -44,6 +46,12 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 		}
 
 		return target;
+	}
+
+	private void UpdateGhostState () {
+		if (ghostState == GhostState.DEAD) {
+			// If ghost has arrived to 
+		}
 	}
 
 	// TODO: This will make it change constantly. Maybe add timer?
