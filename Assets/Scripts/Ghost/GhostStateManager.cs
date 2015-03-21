@@ -33,9 +33,9 @@ public class GhostStateManager : MonoBehaviour {
 
 	private void HandleDeadGhost () {
 		if (HasArrived(pathFinder.GetTargetTile())) {
+			// Blinky is the only ghost that never enters the house
 			if (gameObject.name.Equals ("Blinky")) {
-				// This needs to be the current ghosts state
-				ghostState = GhostState.CHASE;
+				ghostState = ghostManager.GetCurrentGlobalState ();
 			} else {
 				ghostState = GhostState.ENTER;
 			}

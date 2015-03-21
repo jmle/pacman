@@ -63,8 +63,4 @@ public class GhostManager : MonoBehaviour {
 		return currentGlobalState;
 	}
 
-	public bool LivesLost () {
-		return livesLost;
-	}
-
 }
