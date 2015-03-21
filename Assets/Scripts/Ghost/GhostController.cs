@@ -21,6 +21,10 @@ public class GhostController : MonoBehaviour {
 		ghostScriptedMovement = GetComponent<GhostScriptedMovement>();
 
 		direction = Vector2.zero;
+
+		// Choose Pathfinder now, otherwise both will modify
+		// the direction at the beginning.
+		ChoosePathFinder ();
 	}
 
 	// Update is called once per frame

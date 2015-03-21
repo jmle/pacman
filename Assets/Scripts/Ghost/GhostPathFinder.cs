@@ -9,6 +9,7 @@ public class GhostPathFinder : MonoBehaviour {
 	private Vector2 target;
 	private Vector2 truncatedPosition;
 	private Vector2 lastPositionDecided;
+	private Vector2 lastDirectionDecided;
 	private Rigidbody2D ghost;
 	private Tile[,] tileMap;
 	private bool kickstarting;
@@ -28,7 +29,7 @@ public class GhostPathFinder : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void FixedUpdate () {
+	void Update () {
 		truncatedPosition = VectorUtils.Truncate (ghost.position);
 
 		if (ShouldChangeDirection ()) {
@@ -42,9 +43,10 @@ public class GhostPathFinder : MonoBehaviour {
 			kickstarting = false;
 			return true;
 		} else {
-			bool isCloseToCenterOfTheTile = Vector2.Distance (ghost.position, truncatedPosition) < 0.2;
+			bool isCloseToCenterOfTheTile = Vector2.Distance (ghost.position, truncatedPosition) < 0.15;
 			bool hasChangedTileSinceLastDecided = !lastPositionDecided.Equals (truncatedPosition);
 
+			// Debug.Log (ghost.position + "/" + truncatedPosition + "center:" + isCloseToCenterOfTheTile + " changed:" + hasChangedTileSinceLastDecided);
 			return (isCloseToCenterOfTheTile && hasChangedTileSinceLastDecided);
 		}
 	}
@@ -64,9 +66,12 @@ public class GhostPathFinder : MonoBehaviour {
 				if (Vector2.Distance (ghost.position + dir, target) <
 				    Vector2.Distance (ghost.position + closestToTarget, target)) {
 					closestToTarget = dir;
+					// Debug.Log ("decided:" + dir);
 				}
 			}
 		}
+
+		lastDirectionDecided = closestToTarget;
 
 		return closestToTarget;
 	}

@@ -19,8 +19,8 @@ public static class VectorUtils {
 
 	// Eliminates the decimal parts of the coordinates of the given Vector2
 	public static Vector2 Truncate (Vector2 a) {
-		float newX = (float)((int) a.x);
-		float newY = (float)((int) a.y);
+		float newX = Mathf.Round (a.x);
+		float newY = Mathf.Round (a.y);
 
 		return new Vector2(newX, newY);
 	}

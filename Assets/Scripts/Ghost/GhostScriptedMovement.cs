@@ -81,6 +81,6 @@ public class GhostScriptedMovement : MonoBehaviour {
 	}
 
 	private bool HasArrived (Vector2 position) {
-		return Vector2.Distance (rigidbody2D.position, position) < 0.1;
+		return Vector2.Distance (rigidbody2D.position, position) < 0.15;
 	}
 }

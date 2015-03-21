@@ -49,7 +49,7 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 
 	private void UpdateGhostState () {
 		if (ghostState == GhostState.DEAD) {
-			// If ghost has arrived to 
+
 		}
 	}
 
