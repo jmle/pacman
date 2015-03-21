@@ -75,6 +75,10 @@ public class GhostPathFinder : MonoBehaviour {
 		target = tile;
 	}
 
+	public Vector2 GetTargetTile () {
+		return target;
+	}
+
 	public GhostController GetGhostController () {
 		return ghostController;
 	}

@@ -50,6 +50,14 @@ public class GhostController : MonoBehaviour {
 		}
 	}
 
+	public void GoFrightened () {
+		ghostState = GhostState.FRIGHTENED;
+	}
+
+	public void Die () {
+		ghostState = GhostState.DEAD;
+	}
+
 	private void UpdateGhostState () {
 		// We want the state to be updated constantly, independently of whether
 		// pacman ate a dot or not. Otherwise, the state would only get updated
@@ -59,9 +67,6 @@ public class GhostController : MonoBehaviour {
 			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
 				ghostState = GhostState.EXIT;
 			}
-		} else if (ghostState == GhostState.DEAD) {
-			// TODO: where to put this??
-			// if (Vector2.Distance (rigidbody2D.position, position) < 0.1)
 		}
 	}
 	

@@ -19,11 +19,22 @@ public class GhostManager : MonoBehaviour {
 
 	// Called each time a dot is eaten
 	public void PacmanAteDot() {
-		if (!livesLost) {
-			UpdateGhostCounter ();
-		} else {
+		if (livesLost) {
 			UpdateGlobalCounter ();
+		} else {
+			UpdateGhostCounter ();
 		}
+	}
+	
+	private void UpdateGlobalCounter () {
+		// Broadcast message to all ghosts (children)
+		gameObject.BroadcastMessage ("IncrementGlobalCounter");
+	}
+
+	// Called each time an energizer is eaten
+	public void PacmanAteEnergizer () {
+		// TODO: Add counter to go back to normal
+		gameObject.BroadcastMessage ("GoFrightened");
 	}
 
 	private void UpdateGhostCounter () {
@@ -46,9 +57,5 @@ public class GhostManager : MonoBehaviour {
 		}
 	}
 
-	private void UpdateGlobalCounter () {
-		// Broadcast message to all ghosts (children)
-		gameObject.BroadcastMessage ("IncrementGlobalCounter");
-	}
 
 }

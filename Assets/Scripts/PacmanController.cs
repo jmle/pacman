@@ -66,6 +66,12 @@ public class PacmanController : MonoBehaviour {
 	}
 
 	public void EatEnergizer () {
+		ghostManager.PacmanAteEnergizer ();
+		// TODO: speed up pacman?
+	}
 
+	public void Die () {
+		// TODO: Stop the game, play death animation, remove life, restart game
+		Debug.Log ("Pacman dead");
 	}
 }

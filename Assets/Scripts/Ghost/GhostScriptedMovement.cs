@@ -59,6 +59,7 @@ public class GhostScriptedMovement : MonoBehaviour {
 	}
 
 	// Get out of the house
+	// TODO: remove, should use pathfinding inside the house too
 	private void GetOut () {
 		if (!hasArrivedToCenter) {
 			if (HasArrived (middleHousePosition)) {

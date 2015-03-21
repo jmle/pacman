@@ -2,7 +2,6 @@
 using System.Collections;
 
 public abstract class AbstractBehaviour : MonoBehaviour {
-	private static Vector2 STARTING_POSITION = new Vector2 (13.5f, 19f);
 
 	public GameObject player;
 
@@ -38,7 +37,7 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 			break;
 
 		case GhostState.DEAD:
-			target = STARTING_POSITION;
+			target = GetStartingPosition ();
 			break;
 
 		default:
@@ -61,4 +60,5 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 
 	protected abstract Vector2 GetTargetForChase ();
 	protected abstract Vector2 GetTargetForScatter ();
+	protected abstract Vector2 GetStartingPosition ();
 }
