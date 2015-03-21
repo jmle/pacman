@@ -6,9 +6,9 @@ using System.Collections.Generic;
 public class GhostManager : MonoBehaviour {
 
 	public GhostController[] ghosts = new GhostController[4];
+	public GhostState currentGlobalState;
 
 	private GhostController currentGhost;
-	private GhostState currentGlobalState;
 	private int currentGhostIndex;
 	private int globalDotCounter;
 	private bool livesLost;
