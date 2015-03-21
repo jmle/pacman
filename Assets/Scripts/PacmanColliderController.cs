@@ -5,18 +5,22 @@ public class PacmanColliderController : MonoBehaviour {
 
 	private PacmanController pacman;
 
+	void Start () {
+		pacman = GetComponent<PacmanController>();
+	}
+
 	void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.gameObject.tag == "Ghost") {
-			GhostController ghost = collision.gameObject.GetComponent<GhostController>();
-			ReactToGhost (ghost);
+			GhostStateManager ghostStateManager = collision.gameObject.GetComponent<GhostStateManager>();
+			ReactToGhost (ghostStateManager);
 		}
 	
 	}
 
-	private void ReactToGhost (GhostController ghost) {
-		switch (ghost.GetGhostState()) {
+	private void ReactToGhost (GhostStateManager ghostStateManager) {
+		switch (ghostStateManager.GetGhostState()) {
 			case GhostState.FRIGHTENED:
-				ghost.Die ();
+				ghostStateManager.Die ();
 				break;
 			default:
 				pacman.Die ();

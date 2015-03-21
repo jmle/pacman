@@ -8,6 +8,7 @@ public class GhostManager : MonoBehaviour {
 	public GhostController[] ghosts = new GhostController[4];
 
 	private GhostController currentGhost;
+	private GhostState currentGlobalState;
 	private int currentGhostIndex;
 	private int globalDotCounter;
 	private bool livesLost;
@@ -39,8 +40,9 @@ public class GhostManager : MonoBehaviour {
 
 	private void UpdateGhostCounter () {
 		if (currentGhost != null) {
-			if (currentGhost.GetGhostState() == GhostState.HOME) {
-				currentGhost.IncrementDotCounter();
+			GhostStateManager ghostStateManager = currentGhost.GetGhostStateManager();
+			if (ghostStateManager.GetGhostState() == GhostState.HOME) {
+				ghostStateManager.IncrementDotCounter();
 			} else {
 				UpdateCurrentGhost();
 			}
@@ -57,5 +59,12 @@ public class GhostManager : MonoBehaviour {
 		}
 	}
 
+	public GhostState GetCurrentGlobalState () {
+		return currentGlobalState;
+	}
+
+	public bool LivesLost () {
+		return livesLost;
+	}
 
 }

@@ -3,16 +3,18 @@ using System.Collections;
 
 public abstract class AbstractBehaviour : MonoBehaviour {
 
-	public GameObject player;
+	private static Vector2 HOME_DOOR = new Vector2 (13.5f, 19);
 
-	private GhostState ghostState;
+	public GameObject pacman;
 
 	protected PacmanController pacmanController;
 	protected GhostPathFinder pathFinder;
+	protected GhostStateManager ghostStateManager;
 
 	void Start () {
+		pacmanController = pacman.GetComponent<PacmanController> ();
 		pathFinder = GetComponent<GhostPathFinder>();
-		pacmanController = player.GetComponent<PacmanController> ();
+		ghostStateManager = GetComponent<GhostStateManager>();
 	}
 
 	void Update () {
@@ -21,7 +23,7 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 
 	private Vector2 CalculateTargetPosition () {
 		Vector2 target = Vector2.zero;
-		GhostState ghostState = pathFinder.GetGhostController ().GetGhostState ();
+		GhostState ghostState = ghostStateManager.GetGhostState ();
 
 		switch (ghostState) {
 		case GhostState.CHASE:
@@ -36,10 +38,6 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 			target = GetTargetForFrightened ();
 			break;
 
-		case GhostState.DEAD:
-			target = GetStartingPosition ();
-			break;
-
 		default:
 			break;
 		}
@@ -47,18 +45,10 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 		return target;
 	}
 
-	private void UpdateGhostState () {
-		if (ghostState == GhostState.DEAD) {
-
-		}
-	}
-
-	// TODO: This will make it change constantly. Maybe add timer?
 	private Vector2 GetTargetForFrightened () {
 		return VectorUtils.GetRandomVector ();
 	}
 
 	protected abstract Vector2 GetTargetForChase ();
 	protected abstract Vector2 GetTargetForScatter ();
-	protected abstract Vector2 GetStartingPosition ();
 }

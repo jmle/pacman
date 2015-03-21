@@ -66,7 +66,6 @@ public class GhostPathFinder : MonoBehaviour {
 				if (Vector2.Distance (ghost.position + dir, target) <
 				    Vector2.Distance (ghost.position + closestToTarget, target)) {
 					closestToTarget = dir;
-					// Debug.Log ("decided:" + dir);
 				}
 			}
 		}

@@ -2,23 +2,19 @@
 using System.Collections;
 
 public class GhostController : MonoBehaviour {
-	public GhostState ghostState;
-	public int dotLimit;
-	public int globalLimit;
-
 	private Vector2 direction;
-	private int dotCounter;
-	private int globalCounter;
 
 	private Motor motor;
 	private GhostPathFinder ghostPathFinder;
 	private GhostScriptedMovement ghostScriptedMovement;
+	private GhostStateManager ghostStateManager;
 
 	// Use this for initialization
 	void Start () {
 		motor = GetComponent<Motor>();
 		ghostPathFinder = GetComponent<GhostPathFinder>();
 		ghostScriptedMovement = GetComponent<GhostScriptedMovement>();
+		ghostStateManager = GetComponent<GhostStateManager>();	
 
 		direction = Vector2.zero;
 
@@ -30,13 +26,12 @@ public class GhostController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ChoosePathFinder ();
-		UpdateGhostState ();
 
 		motor.SetDirection (direction);
 	}
 
 	public void ChoosePathFinder () {
-		switch (ghostState) {
+		switch (ghostStateManager.GetGhostState()) {
 		case GhostState.CHASE:
 		case GhostState.DEAD:
 		case GhostState.SCATTER:
@@ -52,34 +47,6 @@ public class GhostController : MonoBehaviour {
 		default:
 			break;
 		}
-	}
-
-	public void GoFrightened () {
-		ghostState = GhostState.FRIGHTENED;
-	}
-
-	public void Die () {
-		ghostState = GhostState.DEAD;
-	}
-
-	private void UpdateGhostState () {
-		// We want the state to be updated constantly, independently of whether
-		// pacman ate a dot or not. Otherwise, the state would only get updated
-		// when pacman eats, triggering exit only when eating.
-		// TODO: GhostHomeManager?
-		if (ghostState == GhostState.HOME) {
-			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
-				ghostState = GhostState.EXIT;
-			}
-		}
-	}
-	
-	public void IncrementDotCounter () {
-		dotCounter++;
-	}
-
-	public void IncrementGlobalCounter () {
-		globalCounter++;
 	}
 
 	public void EnablePathFinding () {
@@ -100,16 +67,8 @@ public class GhostController : MonoBehaviour {
 		return direction;
 	}
 
-	public GhostState GetGhostState () {
-		return this.ghostState;
-	}
-
-	public void SetGhostState (GhostState ghostState) {
-		this.ghostState = ghostState;
-	}
-
-	public void SetDotLimit(int dotLimit) {
-		this.dotLimit = dotLimit;
+	public GhostStateManager GetGhostStateManager () {
+		return ghostStateManager;
 	}
 
 }

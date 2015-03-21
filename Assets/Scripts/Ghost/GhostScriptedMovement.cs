@@ -6,10 +6,12 @@ public class GhostScriptedMovement : MonoBehaviour {
 	private static Vector2 middleHousePosition = new Vector2 (13.5f, 16);
 	private static Vector2 outOfTheHousePosition = new Vector2 (13.5f, 19);
 
+	public Vector2 startingPosition;
 	public Vector2 bouncePosition1;
 	public Vector2 bouncePosition2;
 
 	private GhostController ghostController;
+	private GhostStateManager ghostStateManager;
 
 	// Navigation control
 	private bool bouncingUp;
@@ -18,6 +20,7 @@ public class GhostScriptedMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ghostController = GetComponent<GhostController>();
+		ghostStateManager = GetComponent<GhostStateManager>();
 
 		bouncingUp = true;
 		hasArrivedToCenter = false;
@@ -29,12 +32,15 @@ public class GhostScriptedMovement : MonoBehaviour {
 
 	// Update is called once per frame
 	void FixedUpdate () {
-		switch (ghostController.GetGhostState ()) {
+		switch (ghostStateManager.GetGhostState ()) {
 		case GhostState.HOME:
 			Bounce ();
 			break;
 		case GhostState.EXIT:
 			GetOut ();
+			break;
+		case GhostState.ENTER:
+			GetIn ();
 			break;
 		default:
 			break;
@@ -59,7 +65,6 @@ public class GhostScriptedMovement : MonoBehaviour {
 	}
 
 	// Get out of the house
-	// TODO: remove, should use pathfinding inside the house too
 	private void GetOut () {
 		if (!hasArrivedToCenter) {
 			if (HasArrived (middleHousePosition)) {
@@ -69,9 +74,25 @@ public class GhostScriptedMovement : MonoBehaviour {
 			}
 		} else {
 			if (HasArrived (outOfTheHousePosition)) {
-				ghostController.SetGhostState (GhostState.CHASE);
+				ghostStateManager.SetGhostStateToCurrentGlobalState ();
 			} else {
 				GoTo (outOfTheHousePosition);
+			}
+		}
+	}
+
+	private void GetIn () {
+		if (!hasArrivedToCenter) {
+			if (HasArrived (middleHousePosition)) {
+				hasArrivedToCenter = true;
+			} else {
+				GoTo (middleHousePosition);
+			}
+		} else {
+			if (HasArrived (startingPosition)) {
+				ghostStateManager.SetGhostStateToCurrentGlobalState ();
+			} else {
+				GoTo (startingPosition);
 			}
 		}
 	}
