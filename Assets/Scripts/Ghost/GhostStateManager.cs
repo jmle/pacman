@@ -50,12 +50,17 @@ public class GhostStateManager : MonoBehaviour {
 		}
 	}
 
-	// Called through BroadcastMessage()
 	public void GoFrightened () {
-		ghostState = GhostState.FRIGHTENED;
+		// We don't want to get frightened if we are inside the house
+		if (ghostState == GhostState.CHASE || ghostState == GhostState.SCATTER) {
+			ghostState = GhostState.FRIGHTENED;
+
+			if (ghostState == GhostState.CHASE) {
+				pathFinder.ChangeDirection ();
+			}
+		}
 	}
 
-	// Called through BroadcastMessage()
 	public void Die () {
 		ghostState = GhostState.DEAD;
 	}

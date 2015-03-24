@@ -13,6 +13,9 @@ public class GhostManager : MonoBehaviour {
 	private int globalDotCounter;
 	private bool livesLost;
 
+	private float frightenedTimeout;
+	private float scatterTimeout;
+
 	// Use this for initialization
 	void Start () {
 		currentGhost = ghosts[currentGhostIndex];
@@ -32,9 +35,9 @@ public class GhostManager : MonoBehaviour {
 		gameObject.BroadcastMessage ("IncrementGlobalCounter");
 	}
 
-	// Called each time an energizer is eaten
 	public void PacmanAteEnergizer () {
 		// TODO: Add counter to go back to normal
+		currentGlobalState = GhostState.FRIGHTENED;
 		gameObject.BroadcastMessage ("GoFrightened");
 	}
 

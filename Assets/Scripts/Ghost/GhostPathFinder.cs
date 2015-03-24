@@ -13,6 +13,7 @@ public class GhostPathFinder : MonoBehaviour {
 	private Rigidbody2D ghost;
 	private Tile[,] tileMap;
 	private bool kickstarting;
+	private bool changeDirection;
 
 	public GameObject tileMapCreator;
 
@@ -73,6 +74,10 @@ public class GhostPathFinder : MonoBehaviour {
 		lastDirectionDecided = closestToTarget;
 
 		return closestToTarget;
+	}
+
+	public void ChangeDirection () {
+		changeDirection = true;
 	}
 
 	public void SetTargetTile (Vector2 tile) {
