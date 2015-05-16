@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Controls collisions between pacman and the ghosts.
+/// </summary>
 public class PacmanColliderController : MonoBehaviour {
 
 	private PacmanController pacman;
@@ -19,12 +22,13 @@ public class PacmanColliderController : MonoBehaviour {
 
 	private void ReactToGhost (GhostStateManager ghostStateManager) {
 		switch (ghostStateManager.GetGhostState()) {
-			case GhostState.FRIGHTENED:
-				ghostStateManager.Die ();
-				break;
-			default:
-				pacman.Die ();
-				break;
+		case GhostState.FRIGHTENED:
+		case GhostState.DEAD:
+			ghostStateManager.Die ();
+			break;
+		default:
+			pacman.Die ();
+			break;
 		}
 	}
 }

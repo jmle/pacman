@@ -3,6 +3,12 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Creates a data structure that represents the scenario.
+/// Basically creates tiles one by one, by reading from an
+/// external file which contains, for each coordinate, the possible
+/// directions of travel.
+/// </summary>
 public class TileMapFactory : MonoBehaviour {
 
 	private Tile[,] tileMap = new Tile[28,31];

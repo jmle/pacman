@@ -2,7 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
-// Selects the next direction to go to
+/// <summary>
+/// Select the next direction to go.
+/// </summary>
 public class GhostPathFinder : MonoBehaviour {
 
 	private GhostController ghostController;
@@ -13,7 +15,7 @@ public class GhostPathFinder : MonoBehaviour {
 	private Rigidbody2D ghost;
 	private Tile[,] tileMap;
 	private bool kickstarting;
-	private bool changeDirection;
+	private bool reverseDirection;
 
 	public GameObject tileMapCreator;
 
@@ -34,8 +36,14 @@ public class GhostPathFinder : MonoBehaviour {
 		truncatedPosition = VectorUtils.Truncate (ghost.position);
 
 		if (ShouldChangeDirection ()) {
-			ghostController.SetDirection (DecideNextDirection ());
-			lastPositionDecided = truncatedPosition;
+			if (reverseDirection) {
+				// Happens when ghosts change to certain states
+				ghostController.SetDirection (VectorUtils.Opposite (lastDirectionDecided));
+				reverseDirection = false;
+			} else {
+				ghostController.SetDirection (DecideNextDirection ());
+				lastPositionDecided = truncatedPosition;
+			}
 		}
 	}
 
@@ -61,8 +69,6 @@ public class GhostPathFinder : MonoBehaviour {
 		Vector2 closestToTarget = new Vector2 (1000, 1000);
 		foreach (Vector2 dir in directions) {
 			// The opposite direction of the current one is discarded
-			// TODO: ghosts should be able to change direction when changing behaviour
-			// TODO: a DEAD ghost should be able to get into the house
 			if (!VectorUtils.AreOpposite (ghostController.GetDirection (), dir)) {
 				if (Vector2.Distance (ghost.position + dir, target) <
 				    Vector2.Distance (ghost.position + closestToTarget, target)) {
@@ -76,8 +82,8 @@ public class GhostPathFinder : MonoBehaviour {
 		return closestToTarget;
 	}
 
-	public void ChangeDirection () {
-		changeDirection = true;
+	public void ReverseDirection () {
+		reverseDirection = true;
 	}
 
 	public void SetTargetTile (Vector2 tile) {

@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// Collider Controller for dots and energizers
+/// <summary>
+/// Handles collisions for dots and energizers
+/// </summary>
 public class DotColliderController : MonoBehaviour {
 
 	void OnCollisionEnter2D(Collision2D collision) {

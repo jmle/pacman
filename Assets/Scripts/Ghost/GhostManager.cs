@@ -2,13 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Manages the group of ghosts and keeps track of
+/// global states for all ghosts
+/// </summary>
 // TODO: add scatter stuff and timers for dots
 public class GhostManager : MonoBehaviour {
 
 	public GhostController[] ghosts = new GhostController[4];
 	public GhostState currentGlobalState;
-
 	private GhostController currentGhost;
+
 	private int currentGhostIndex;
 	private int globalDotCounter;
 	private bool livesLost;

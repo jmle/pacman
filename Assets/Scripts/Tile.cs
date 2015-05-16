@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
+/// <summary>
+/// This class represents a single tile from the scenario.
+/// Each tile holds the possible directions of travel to choose.
+/// </summary>
 public class Tile {
 	private IList<Vector2> directions = new List<Vector2> ();
 

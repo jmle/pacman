@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Main class for pacman. Controls the movement and the different
+/// states pacman can be in.
+/// </summary>
 public class PacmanController : MonoBehaviour {
 
 	private Animator animator;

@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Holds the possible directions.
+/// </summary>
 public static class Direction {
 	// Ordered in ghost preference.
 	public static Vector2 up = new Vector2 (0, 1);

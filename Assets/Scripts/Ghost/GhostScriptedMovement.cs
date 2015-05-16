@@ -1,11 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-// TODO: Change name to something meaningful
+/// <summary>
+/// Pre-scripted movements for the ghosts.
+/// Controls the routines of the ghosts when inside the house,
+/// but doesn't change their state (that's the job of the GhostHouseHandler)
+/// </summary>
 public class GhostScriptedMovement : MonoBehaviour {
-	private static Vector2 middleHousePosition = new Vector2 (13.5f, 16);
-	private static Vector2 outOfTheHousePosition = new Vector2 (13.5f, 19);
-
 	public Vector2 startingPosition;
 	public Vector2 bouncePosition1;
 	public Vector2 bouncePosition2;
@@ -20,7 +21,7 @@ public class GhostScriptedMovement : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		ghostController = GetComponent<GhostController>();
-		ghostStateManager = GetComponent<GhostStateManager>();
+		ghostStateManager = ghostController.GetGhostStateManager ();
 
 		bouncingUp = true;
 		hasArrivedToCenter = false;
@@ -67,33 +68,25 @@ public class GhostScriptedMovement : MonoBehaviour {
 	// Get out of the house
 	private void GetOut () {
 		if (!hasArrivedToCenter) {
-			if (HasArrived (middleHousePosition)) {
+			if (HasArrived (GlobalPositions.HOUSE_MIDDLE)) {
 				hasArrivedToCenter = true;
 			} else {
-				GoTo (middleHousePosition);
+				GoTo (GlobalPositions.HOUSE_MIDDLE);
 			}
 		} else {
-			if (HasArrived (outOfTheHousePosition)) {
-				ghostStateManager.SetGhostStateToCurrentGlobalState ();
-			} else {
-				GoTo (outOfTheHousePosition);
-			}
+			GoTo (GlobalPositions.HOUSE_DOOR);
 		}
 	}
 
 	private void GetIn () {
 		if (!hasArrivedToCenter) {
-			if (HasArrived (middleHousePosition)) {
+			if (HasArrived (GlobalPositions.HOUSE_MIDDLE)) {
 				hasArrivedToCenter = true;
 			} else {
-				GoTo (middleHousePosition);
+				GoTo (GlobalPositions.HOUSE_MIDDLE);
 			}
 		} else {
-			if (HasArrived (startingPosition)) {
-				ghostStateManager.SetGhostStateToCurrentGlobalState ();
-			} else {
-				GoTo (startingPosition);
-			}
+//			GoTo (startingPosition);
 		}
 	}
 

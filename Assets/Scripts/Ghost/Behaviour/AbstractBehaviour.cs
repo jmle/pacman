@@ -37,6 +37,10 @@ public abstract class AbstractBehaviour : MonoBehaviour {
 		case GhostState.FRIGHTENED:
 			target = GetTargetForFrightened ();
 			break;
+		
+		case GhostState.DEAD:
+			target = HOME_DOOR;
+			break;
 
 		default:
 			break;

@@ -2,6 +2,10 @@
 using System.IO;
 using System.Collections;
 
+/// <summary>
+/// Instantiates the dots and energizers
+/// It reads a file which contains their position across the scenario.
+/// </summary>
 public class DotInstantiator : MonoBehaviour {
 
 	public Transform dot;

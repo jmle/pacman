@@ -1,6 +1,9 @@
 using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Handles motion.
+/// </summary>
 public class Motor : MonoBehaviour {
 
 	private Rigidbody2D ghost;

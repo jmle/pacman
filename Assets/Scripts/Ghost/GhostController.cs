@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Central class for controlling a ghost. Orchestrates the switch
+/// between pathfinding and scripted ways of navigation. Tells the
+/// Motor the direction to go.
+/// </summary>
 public class GhostController : MonoBehaviour {
 	private Vector2 direction;
 
@@ -41,6 +46,7 @@ public class GhostController : MonoBehaviour {
 
 		case GhostState.HOME:
 		case GhostState.EXIT:
+		case GhostState.ENTER:
 			EnableScriptedMovement ();
 			break;
 

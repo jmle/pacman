@@ -52,4 +52,11 @@ public static class VectorUtils {
 		return new Vector2 (randomX, randomY);
 	}
 
+	public static Vector2 Opposite (Vector2 a) {
+		float x = a.x * -1;
+		float y = a.y * -1;
+
+		return new Vector2 (x, y);
+	}
+
 }
