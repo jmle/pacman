@@ -22,38 +22,37 @@ public class GhostStateManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-//		switch (ghostState) {
-//		case GhostState.DEAD:
-//			// TODO: conflict with GhostHouseHandler
-//			HandleDeadGhost ();
-//			break;
-//		case GhostState.HOME:
-//			HandleGhostAtHome ();
-//			break;
-//		default:
-//			break;
-//		}
+		switch (ghostState) {
+		case GhostState.DEAD:
+			HandleDeadGhost ();
+			break;
+		case GhostState.HOME:
+			HandleGhostAtHome ();
+			break;
+		default:
+			break;
+		}
 	}
-//
-//	private void HandleDeadGhost () {
-//		if (HasArrived(pathFinder.GetTargetTile())) {
-//			// Blinky is the only ghost that never enters the house
-//			// TODO: the above statement is actually false; he enters too
-//			if (gameObject.name.Equals ("Blinky")) {
-//				ghostState = ghostManager.GetCurrentGlobalState ();
-//			} else {
-//				ghostState = GhostState.ENTER;
-//			}
-//		}
-//	}
-//
-//	private void HandleGhostAtHome () {
-//		if (ghostState == GhostState.HOME) {
-//			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
-//				ghostState = GhostState.EXIT;
-//			}
-//		}
-//	}
+
+	private void HandleDeadGhost () {
+		if (HasArrived(pathFinder.GetTargetTile())) {
+			// Blinky is the only ghost that never enters the house
+			// TODO: the above statement is actually false; he enters too
+			if (gameObject.name.Equals ("Blinky")) {
+				ghostState = ghostManager.GetCurrentGlobalState ();
+			} else {
+				ghostState = GhostState.ENTER;
+			}
+		}
+	}
+
+	private void HandleGhostAtHome () {
+		if (ghostState == GhostState.HOME) {
+			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
+				ghostState = GhostState.EXIT;
+			}
+		}
+	}
 
 	public void GoFrightened () {
 		// We don't want to get frightened if we are inside the house
