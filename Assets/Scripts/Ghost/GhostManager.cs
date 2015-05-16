@@ -17,12 +17,31 @@ public class GhostManager : MonoBehaviour {
 	private int globalDotCounter;
 	private bool livesLost;
 
-	private float frightenedTimeout;
-	private float scatterTimeout;
+	// Timing variables for global state changes
+	private static float FRIGHTENED_TIME = 5;
+	private static float SCATTER_TIME = 5;
+	private float frightenedElapsed;
+	private float scatterElapsed;
+	private bool countingFrightened;
+	private bool countingScatter;
 
 	// Use this for initialization
 	void Start () {
 		currentGhost = ghosts[currentGhostIndex];
+	}
+
+	void Update () {
+		// Control timing of these states
+		switch (currentGlobalState) {
+		case GhostState.SCATTER:
+			UpdateScatterState ();
+			break;
+		case GhostState.FRIGHTENED:
+			UpdateFrightenedState ();
+			break;
+		default:
+			break;
+		}
 	}
 
 	// Called each time a dot is eaten
@@ -34,15 +53,40 @@ public class GhostManager : MonoBehaviour {
 		}
 	}
 	
+	public void PacmanAteEnergizer () {
+		currentGlobalState = GhostState.FRIGHTENED;
+		gameObject.BroadcastMessage ("GoFrightened");
+	}
+
+	private void UpdateScatterState () {
+		if (!countingScatter) {
+			countingScatter = false;
+			scatterElapsed = 0;
+		} else {
+			scatterElapsed += Time.deltaTime;
+
+			if (scatterElapsed >= SCATTER_TIME) {
+				currentGlobalState = GhostState.CHASE;
+			}
+		}
+	}
+
+	private void UpdateFrightenedState () {
+		if (!countingFrightened) {
+			countingFrightened = false;
+			frightenedElapsed = 0;
+		} else {
+			frightenedElapsed += Time.deltaTime;
+
+			if (frightenedElapsed >= FRIGHTENED_TIME) {
+				currentGlobalState = GhostState.CHASE;
+			}
+		}
+	}
+
 	private void UpdateGlobalCounter () {
 		// Broadcast message to all ghosts (children)
 		gameObject.BroadcastMessage ("IncrementGlobalCounter");
-	}
-
-	public void PacmanAteEnergizer () {
-		// TODO: Add counter to go back to normal
-		currentGlobalState = GhostState.FRIGHTENED;
-		gameObject.BroadcastMessage ("GoFrightened");
 	}
 
 	private void UpdateGhostCounter () {
