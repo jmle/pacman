@@ -20,10 +20,9 @@ public class GhostManager : MonoBehaviour {
 	// Timing variables for global state changes
 	private static float FRIGHTENED_TIME = 5;
 	private static float SCATTER_TIME = 5;
-	private float frightenedElapsed;
-	private float scatterElapsed;
-	private bool countingFrightened;
-	private bool countingScatter;
+	private static float CHASE_TIME = 5;
+	private float elapsed;
+	private bool counting;
 
 	// Use this for initialization
 	void Start () {
@@ -34,10 +33,10 @@ public class GhostManager : MonoBehaviour {
 		// Control timing of these states
 		switch (currentGlobalState) {
 		case GhostState.SCATTER:
-			UpdateScatterState ();
+			UpdateAutomaticStateChange (SCATTER_TIME, GhostState.CHASE);
 			break;
 		case GhostState.FRIGHTENED:
-			UpdateFrightenedState ();
+			UpdateAutomaticStateChange (FRIGHTENED_TIME, GhostState.CHASE);
 			break;
 		default:
 			break;
@@ -58,28 +57,16 @@ public class GhostManager : MonoBehaviour {
 		gameObject.BroadcastMessage ("GoFrightened");
 	}
 
-	private void UpdateScatterState () {
-		if (!countingScatter) {
-			countingScatter = false;
-			scatterElapsed = 0;
+	private void UpdateAutomaticStateChange (float time, GhostState nextState) {
+		if (!counting) {
+			counting = true;
+			elapsed = 0;
 		} else {
-			scatterElapsed += Time.deltaTime;
-
-			if (scatterElapsed >= SCATTER_TIME) {
-				currentGlobalState = GhostState.CHASE;
-			}
-		}
-	}
-
-	private void UpdateFrightenedState () {
-		if (!countingFrightened) {
-			countingFrightened = false;
-			frightenedElapsed = 0;
-		} else {
-			frightenedElapsed += Time.deltaTime;
-
-			if (frightenedElapsed >= FRIGHTENED_TIME) {
-				currentGlobalState = GhostState.CHASE;
+			elapsed += Time.deltaTime;
+			
+			if (elapsed >= time) {
+				counting = false;
+				currentGlobalState = nextState;
 			}
 		}
 	}
