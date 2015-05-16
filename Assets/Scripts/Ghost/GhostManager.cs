@@ -6,7 +6,6 @@ using System.Collections.Generic;
 /// Manages the group of ghosts and keeps track of
 /// global states for all ghosts
 /// </summary>
-// TODO: add scatter stuff and timers for dots
 public class GhostManager : MonoBehaviour {
 
 	public GhostController[] ghosts = new GhostController[4];
