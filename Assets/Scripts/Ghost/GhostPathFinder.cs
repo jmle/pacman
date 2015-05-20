@@ -39,6 +39,7 @@ public class GhostPathFinder : MonoBehaviour {
 			if (reverseDirection) {
 				// Happens when ghosts change to certain states
 				ghostController.SetDirection (VectorUtils.Opposite (lastDirectionDecided));
+				lastPositionDecided = truncatedPosition;
 				reverseDirection = false;
 			} else {
 				ghostController.SetDirection (DecideNextDirection ());
