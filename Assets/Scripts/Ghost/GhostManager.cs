@@ -18,8 +18,8 @@ public class GhostManager : MonoBehaviour {
 
 	// Timing variables for global state changes
 	private static float FRIGHTENED_TIME = 5;
-	private static float SCATTER_TIME = 5;
-	private static float CHASE_TIME = 7;
+	private static float SCATTER_TIME = 7;
+	private static float CHASE_TIME = 20;
 	private float elapsed;
 	private bool counting;
 
