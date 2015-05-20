@@ -86,7 +86,9 @@ public class GhostScriptedMovement : MonoBehaviour {
 				GoTo (GlobalPositions.HOUSE_MIDDLE);
 			}
 		} else {
+			// TODO: handle this properly. Have to go first to the middle, then to starting position.
 //			GoTo (startingPosition);
+			GoTo (GlobalPositions.HOUSE_MIDDLE);
 		}
 	}
 

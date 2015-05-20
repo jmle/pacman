@@ -104,11 +104,11 @@ public class GhostManager : MonoBehaviour {
 	private void UpdateGhostCounter () {
 		if (currentGhost != null) {
 			GhostStateManager ghostStateManager = currentGhost.GetGhostStateManager();
-			if (ghostStateManager.GetGhostState() == GhostState.HOME) {
-				ghostStateManager.IncrementDotCounter();
-			} else {
+//			if (ghostStateManager.GetGhostState() == GhostState.HOME) {
+//				ghostStateManager.IncrementDotCounter();
+//			} else {
 				UpdateCurrentGhost();
-			}
+//			}
 		}
 	}
 
