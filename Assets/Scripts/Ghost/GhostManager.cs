@@ -75,6 +75,11 @@ public class GhostManager : MonoBehaviour {
 	private void ChangeStateTo (GhostState state) {
 		currentGlobalState = state;
 
+		// Reset timers and stuff
+		// TODO: separate counters if we want to persist previous timers
+		elapsed = 0;
+		counting = false;
+
 		// Broadcast message to all ghosts
 		switch (state) {
 		case GhostState.FRIGHTENED:
