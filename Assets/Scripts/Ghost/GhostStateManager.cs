@@ -47,10 +47,8 @@ public class GhostStateManager : MonoBehaviour {
 	}
 
 	private void HandleGhostAtHome () {
-		if (ghostState == GhostState.HOME) {
-			if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
-				ghostState = GhostState.EXIT;
-			}
+		if (dotCounter >= dotLimit || globalCounter >= globalLimit) {
+			ghostState = GhostState.EXIT;
 		}
 	}
 

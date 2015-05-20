@@ -70,7 +70,7 @@ public class PacmanController : MonoBehaviour {
 	}
 
 	public void EatEnergizer () {
-		ghostManager.PacmanAteEnergizer ();		// TODO: change this name
+		ghostManager.PacmanAteEnergizer ();
 		// TODO: speed up pacman?
 	}
 
