@@ -21,14 +21,10 @@ public class PacmanColliderController : MonoBehaviour {
 	}
 
 	private void ReactToGhost (GhostStateManager ghostStateManager) {
-		switch (ghostStateManager.GetGhostState()) {
-		case GhostState.FRIGHTENED:
-		case GhostState.DEAD:
+		if (ghostStateManager.GetGhostState() == GhostState.FRIGHTENED) {
 			ghostStateManager.Die ();
-			break;
-		default:
+		} else {
 			pacman.Die ();
-			break;
 		}
 	}
 }
