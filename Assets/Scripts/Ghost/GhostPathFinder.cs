@@ -30,7 +30,7 @@ public class GhostPathFinder : MonoBehaviour {
 	void OnEnable () {
 		kickstarting = true;
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		truncatedPosition = VectorUtils.Truncate (ghost.position);

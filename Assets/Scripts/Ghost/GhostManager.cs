@@ -19,7 +19,7 @@ public class GhostManager : MonoBehaviour {
 	// Timing variables for global state changes
 	private static float FRIGHTENED_TIME = 5;
 	private static float SCATTER_TIME = 5;
-	private static float CHASE_TIME = 5;
+	private static float CHASE_TIME = 7;
 	private float elapsed;
 	private bool counting;
 
@@ -37,6 +37,9 @@ public class GhostManager : MonoBehaviour {
 		case GhostState.FRIGHTENED:
 			UpdateAutomaticStateChange (FRIGHTENED_TIME, GhostState.CHASE);
 			break;
+		case GhostState.CHASE:
+			UpdateAutomaticStateChange (CHASE_TIME, GhostState.SCATTER);
+			break;
 		default:
 			break;
 		}
@@ -52,8 +55,7 @@ public class GhostManager : MonoBehaviour {
 	}
 	
 	public void PacmanAteEnergizer () {
-		currentGlobalState = GhostState.FRIGHTENED;
-		gameObject.BroadcastMessage ("GoFrightened");
+		ChangeStateTo (GhostState.FRIGHTENED);
 	}
 
 	private void UpdateAutomaticStateChange (float time, GhostState nextState) {
@@ -65,8 +67,27 @@ public class GhostManager : MonoBehaviour {
 			
 			if (elapsed >= time) {
 				counting = false;
-				currentGlobalState = nextState;
+				ChangeStateTo (nextState);
 			}
+		}
+	}
+
+	private void ChangeStateTo (GhostState state) {
+		currentGlobalState = state;
+
+		// Broadcast message to all ghosts
+		switch (state) {
+		case GhostState.FRIGHTENED:
+			gameObject.BroadcastMessage ("GoFrightened");
+			break;
+		case GhostState.CHASE:
+			gameObject.BroadcastMessage ("StartChasing");
+			break;
+		case GhostState.SCATTER:
+			gameObject.BroadcastMessage ("Scatter");
+			break;
+		default:
+			break;
 		}
 	}
 
@@ -92,6 +113,7 @@ public class GhostManager : MonoBehaviour {
 		} catch (System.IndexOutOfRangeException) {
 			// If the current ghost is null, it will mean that all ghosts have exited
 			// the house.
+			// TODO: ghosts could enter the house again, meaning this needs more handling
 			currentGhost = null;
 		}
 	}
