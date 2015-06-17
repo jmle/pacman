@@ -8,6 +8,7 @@ using System.Collections;
 /// </summary>
 public class GhostController : MonoBehaviour {
 	private Vector2 direction;
+	private bool move;
 
 	private Motor motor;
 	private GhostPathFinder ghostPathFinder;
@@ -22,6 +23,7 @@ public class GhostController : MonoBehaviour {
 		ghostStateManager = GetComponent<GhostStateManager>();	
 
 		direction = Vector2.zero;
+		move = true;
 
 		// Choose Pathfinder now, otherwise both will modify
 		// the direction at the beginning.
@@ -32,7 +34,11 @@ public class GhostController : MonoBehaviour {
 	void Update () {
 		ChoosePathFinder ();
 
-		motor.SetDirection (direction);
+		if (move) {
+			motor.SetDirection (direction);
+		} else {
+			motor.SetDirection (Vector2.zero);
+		}
 	}
 
 	public void ChoosePathFinder () {
@@ -63,6 +69,14 @@ public class GhostController : MonoBehaviour {
 	public void EnableScriptedMovement () {
 		ghostScriptedMovement.enabled = true;
 		ghostPathFinder.enabled = false;
+	}
+
+	public void Freeze () {
+		move = false;
+	}
+
+	public void Unfreeze () {
+		move = true;
 	}
 
 	public void SetDirection (Vector2 direction) {

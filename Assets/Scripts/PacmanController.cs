@@ -8,6 +8,7 @@ using System.Collections;
 public class PacmanController : MonoBehaviour {
 
 	private Animator animator;
+	private bool move;
 
 	public GhostManager ghostManager;
 	public float speed;
@@ -15,6 +16,8 @@ public class PacmanController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
+
+		move = true;
 	}
 	
 	// Update is called once per frame
@@ -32,7 +35,11 @@ public class PacmanController : MonoBehaviour {
 		float movX = Input.GetAxisRaw ("Horizontal") * speed;
 		float movY = Input.GetAxisRaw ("Vertical") * speed;
 
-		rigidbody2D.velocity = new Vector2 (movX, movY);
+		if (move) {
+			rigidbody2D.velocity = new Vector2 (movX, movY);
+		} else {
+			rigidbody2D.velocity = Vector2.zero;
+		}
 	}
 
 	void Flip () {
@@ -77,5 +84,13 @@ public class PacmanController : MonoBehaviour {
 	public void Die () {
 		// TODO: Stop the game, play death animation, remove life, restart game
 		Debug.Log ("Pacman dead");
+	}
+
+	public void Freeze () {
+		move = false;
+	}
+
+	public void Unfreeze () {
+		move = true;
 	}
 }
