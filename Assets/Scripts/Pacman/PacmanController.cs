@@ -27,6 +27,8 @@ public class PacmanController : MonoBehaviour {
 		if (move) {
 			UpdatePosition ();
 			Flip ();
+		} else {
+			rigidbody2D.velocity = Vector2.zero;
 		}
 	}
 
@@ -83,7 +85,6 @@ public class PacmanController : MonoBehaviour {
 	public void Die () {
 		// TODO: Stop the game, play death animation, remove life, restart game
 		Debug.Log ("Pacman dead");
-
 	}
 
 	public void Freeze () {

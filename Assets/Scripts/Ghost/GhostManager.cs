@@ -58,6 +58,14 @@ public class GhostManager : MonoBehaviour {
 		ChangeStateTo (GhostState.FRIGHTENED);
 	}
 
+	public void FreezeGhosts () {
+		gameObject.BroadcastMessage ("Freeze");
+	}
+
+	public void UnfreezeGhosts () {
+		gameObject.BroadcastMessage ("Unfreeze");
+	}
+
 	private void UpdateAutomaticStateChange (float time, GhostState nextState) {
 		if (!counting) {
 			counting = true;

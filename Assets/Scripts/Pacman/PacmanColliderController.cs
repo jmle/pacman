@@ -8,6 +8,8 @@ public class PacmanColliderController : MonoBehaviour {
 
 	private PacmanController pacman;
 
+	public GameController gameController;
+
 	void Start () {
 		pacman = GetComponent<PacmanController>();
 	}
@@ -17,15 +19,13 @@ public class PacmanColliderController : MonoBehaviour {
 			GhostStateManager ghostStateManager = collision.gameObject.GetComponent<GhostStateManager>();
 			ReactToGhost (ghostStateManager);
 		}
-	
 	}
 
 	private void ReactToGhost (GhostStateManager ghostStateManager) {
 		if (ghostStateManager.GetGhostState() == GhostState.FRIGHTENED) {
 			ghostStateManager.Die ();
 		} else {
-			pacman.Die ();
+			gameController.Die ();
 		}
 	}
 }
-
