@@ -23,8 +23,11 @@ public class PacmanController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		UpdateAnimator ();
-		UpdatePosition ();
-		Flip ();
+
+		if (move) {
+			UpdatePosition ();
+			Flip ();
+		}
 	}
 
 	void UpdateAnimator () {
@@ -35,11 +38,7 @@ public class PacmanController : MonoBehaviour {
 		float movX = Input.GetAxisRaw ("Horizontal") * speed;
 		float movY = Input.GetAxisRaw ("Vertical") * speed;
 
-		if (move) {
-			rigidbody2D.velocity = new Vector2 (movX, movY);
-		} else {
-			rigidbody2D.velocity = Vector2.zero;
-		}
+		rigidbody2D.velocity = new Vector2 (movX, movY);
 	}
 
 	void Flip () {
@@ -84,6 +83,7 @@ public class PacmanController : MonoBehaviour {
 	public void Die () {
 		// TODO: Stop the game, play death animation, remove life, restart game
 		Debug.Log ("Pacman dead");
+
 	}
 
 	public void Freeze () {
