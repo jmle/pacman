@@ -15,6 +15,8 @@ public class GhostController : MonoBehaviour {
 	private GhostScriptedMovement ghostScriptedMovement;
 	private GhostStateManager ghostStateManager;
 
+	public GameController gameController;
+
 	// Use this for initialization
 	void Start () {
 		motor = GetComponent<Motor>();

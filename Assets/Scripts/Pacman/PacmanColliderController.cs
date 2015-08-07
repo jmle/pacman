@@ -24,6 +24,7 @@ public class PacmanColliderController : MonoBehaviour {
 	private void ReactToGhost (GhostStateManager ghostStateManager) {
 		if (ghostStateManager.GetGhostState() == GhostState.FRIGHTENED) {
 			ghostStateManager.Die ();
+//			ghostStateManager.gameObject.GetComponent<GhostController>().Die()...
 		} else {
 			gameController.Die ();
 		}

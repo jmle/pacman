@@ -8,6 +8,8 @@ using System.Collections;
 public class PacmanController : MonoBehaviour {
 
 	private Animator animator;
+	private AudioSource audioBite;
+	private AudioSource audioEnergizer;
 	private bool move;
 
 	public GhostManager ghostManager;
@@ -16,6 +18,9 @@ public class PacmanController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		animator = GetComponent<Animator>();
+		Component[] components = GetComponents<AudioSource>();
+		audioBite = (AudioSource)components[0];
+		audioEnergizer = (AudioSource)components[1];
 
 		move = true;
 	}
@@ -74,10 +79,16 @@ public class PacmanController : MonoBehaviour {
 	}
 
 	public void EatDot () {
+		if (!audioBite.isPlaying)
+			audioBite.Play();
+
 		ghostManager.PacmanAteDot ();
 	}
 
 	public void EatEnergizer () {
+		if (!audioEnergizer.isPlaying)
+			audioEnergizer.Play();
+
 		ghostManager.PacmanAteEnergizer ();
 		// TODO: speed up pacman?
 	}
