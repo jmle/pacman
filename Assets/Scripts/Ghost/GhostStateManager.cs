@@ -55,6 +55,7 @@ public class GhostStateManager : MonoBehaviour {
 	public void GoFrightened () {
 		// We don't want to get frightened if we are inside the house
 		// TODO: in the actual game they change the sprite even inside the house. Is that a new state?
+		// ^ The only thing that changes is the animation, so we can just add a new animation maybe
 		if (ghostState == GhostState.CHASE || ghostState == GhostState.SCATTER) {
 			// Ghosts reverse direction always in this case
 			pathFinder.ReverseDirection ();

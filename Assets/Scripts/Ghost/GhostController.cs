@@ -14,6 +14,7 @@ public class GhostController : MonoBehaviour {
 	private GhostPathFinder ghostPathFinder;
 	private GhostScriptedMovement ghostScriptedMovement;
 	private GhostStateManager ghostStateManager;
+	private Animator animator;
 
 	public GameController gameController;
 
@@ -22,7 +23,8 @@ public class GhostController : MonoBehaviour {
 		motor = GetComponent<Motor>();
 		ghostPathFinder = GetComponent<GhostPathFinder>();
 		ghostScriptedMovement = GetComponent<GhostScriptedMovement>();
-		ghostStateManager = GetComponent<GhostStateManager>();	
+		ghostStateManager = GetComponent<GhostStateManager>();
+		animator = GetComponent<Animator>();
 
 		direction = Vector2.zero;
 		move = true;
@@ -35,11 +37,26 @@ public class GhostController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		ChoosePathFinder ();
+		UpdateAnimator ();
 
 		if (move) {
 			motor.SetDirection (direction);
 		} else {
 			motor.SetDirection (Vector2.zero);
+		}
+	}
+
+	public void UpdateAnimator () {
+		// TODO: improve this code
+		if (ghostStateManager.GetGhostState().Equals(GhostState.FRIGHTENED)) {
+			animator.SetBool ("isFrightened", true);
+			animator.SetBool ("isDead", false);
+		} else if (ghostStateManager.GetGhostState().Equals(GhostState.DEAD)) {
+			animator.SetBool ("isDead", true);
+			animator.SetBool ("isFrightened", false);
+		} else {
+			animator.SetBool ("isFrightened", false);
+			animator.SetBool ("isDead", false);
 		}
 	}
 
